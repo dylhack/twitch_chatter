@@ -1,0 +1,123 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ast (2.4.2)
+    async (2.11.0)
+      console (~> 1.25, >= 1.25.2)
+      fiber-annotation
+      io-event (~> 1.5, >= 1.5.1)
+      timers (~> 4.1)
+    async-http (0.66.3)
+      async (>= 2.10.2)
+      async-pool (>= 0.6.1)
+      io-endpoint (~> 0.10, >= 0.10.3)
+      io-stream (~> 0.4)
+      protocol-http (~> 0.26.0)
+      protocol-http1 (~> 0.19.0)
+      protocol-http2 (~> 0.17.0)
+      traces (>= 0.10.0)
+    async-pool (0.6.1)
+      async (>= 1.25)
+    async-websocket (0.26.1)
+      async-http (~> 0.54)
+      protocol-rack (~> 0.5)
+      protocol-websocket (~> 0.11)
+    console (1.25.2)
+      fiber-annotation
+      fiber-local (~> 1.1)
+      json
+    debug (1.9.2)
+      irb (~> 1.10)
+      reline (>= 0.3.8)
+    diff-lcs (1.5.1)
+    fiber-annotation (0.2.0)
+    fiber-local (1.1.0)
+      fiber-storage
+    fiber-storage (0.1.1)
+    io-console (0.7.2)
+    io-endpoint (0.10.3)
+    io-event (1.5.1)
+    io-stream (0.4.0)
+    irb (1.13.1)
+      rdoc (>= 4.0.0)
+      reline (>= 0.4.2)
+    json (2.7.2)
+    language_server-protocol (3.17.0.3)
+    parallel (1.24.0)
+    parser (3.3.1.0)
+      ast (~> 2.4.1)
+      racc
+    protocol-hpack (1.4.3)
+    protocol-http (0.26.5)
+    protocol-http1 (0.19.1)
+      protocol-http (~> 0.22)
+    protocol-http2 (0.17.0)
+      protocol-hpack (~> 1.4)
+      protocol-http (~> 0.18)
+    protocol-rack (0.5.1)
+      protocol-http (~> 0.23)
+      rack (>= 1.0)
+    protocol-websocket (0.13.0)
+      protocol-http (~> 0.2)
+    psych (5.1.2)
+      stringio
+    racc (1.8.0)
+    rack (3.0.11)
+    rainbow (3.1.1)
+    rdoc (6.6.3.1)
+      psych (>= 4.0.0)
+    regexp_parser (2.9.2)
+    reline (0.5.7)
+      io-console (~> 0.5)
+    rexml (3.2.8)
+      strscan (>= 3.0.9)
+    rspec (3.13.0)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.0)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.1)
+    rubocop (1.63.5)
+      json (~> 2.3)
+      language_server-protocol (>= 3.17.0)
+      parallel (~> 1.10)
+      parser (>= 3.3.0.2)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.8, < 3.0)
+      rexml (>= 3.2.5, < 4.0)
+      rubocop-ast (>= 1.31.1, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 2.4.0, < 3.0)
+    rubocop-ast (1.31.3)
+      parser (>= 3.3.1.0)
+    rubocop-shopify (2.15.1)
+      rubocop (~> 1.51)
+    ruby-progressbar (1.13.0)
+    stringio (3.1.0)
+    strscan (3.1.0)
+    timers (4.3.5)
+    traces (0.11.1)
+    unicode-display_width (2.5.0)
+    yard (0.9.36)
+
+PLATFORMS
+  arm64-darwin-23
+  ruby
+
+DEPENDENCIES
+  async-websocket (~> 0.26.1)
+  debug
+  rspec
+  rubocop
+  rubocop-shopify
+  yard
+
+BUNDLED WITH
+   2.5.9

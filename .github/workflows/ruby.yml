@@ -1,0 +1,26 @@
+name: Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
+      with:
+        ruby-version: '3.1'
+        bundler-cache: true 
+    - name: Run tests
+      run: bundle exec rspec
+    - name: Validate Docs
+      run: bundle exec yard stats --fail-on-warning
+
