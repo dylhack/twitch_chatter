@@ -3,7 +3,6 @@
 require "async"
 require "async/http/endpoint"
 require "async/websocket/client"
-require_relative "twitch_chatter/concerns"
 require_relative "twitch_chatter/models"
 require_relative "twitch_chatter/bot"
 
