@@ -56,6 +56,12 @@ module Twitch
 
     LINK = %r{(https?://[^\s]+)}
     # @return [Array<String>] List of links mentioned in the message
+    # @example
+    #   bot.join(:twitchgaming) do |message|
+    #     if message.links.any?
+    #       puts "Links: #{message.links.join(", ")}"
+    #     end
+    #   end
     def links
       return @links if @links
 

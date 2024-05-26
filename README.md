@@ -3,6 +3,8 @@
 gem install twitch_chatter
 ```
 
+- [Documentation](https://rubydoc.info/gems/twitch_chatter)
+
 # Example Usage
 
 ```ruby
