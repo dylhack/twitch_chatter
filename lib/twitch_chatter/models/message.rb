@@ -28,6 +28,7 @@ module Twitch
       super(content)
 
       @content = content
+      @connection = connection
       @channel = Channel.new(split[2][1..-1], connection: connection)
       @sender = Channel.new(split[0].split("!")[0][1..-1])
       @raw = raw
@@ -37,6 +38,7 @@ module Twitch
     alias_method :streamer, :channel
 
     USERNAME = /[a-zA-Z0-9_]{4,25}/
+    # @return [Array<Twitch::Channel>] List of usernames mentioned in the message
     def mentions
       return @mentions if @mentions
 
@@ -45,13 +47,14 @@ module Twitch
         match = word.match(/@#{USERNAME}/)
         next unless match
 
-        @mentions << match[0][1..-1]
+        @mentions << Channel.new(match[0][1..-1], connection: @connection)
       end
 
       @mentions
     end
 
     LINK = %r{(https?://[^\s]+)}
+    # @return [Array<String>] List of links mentioned in the message
     def links
       return @links if @links
 
