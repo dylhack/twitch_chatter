@@ -10,18 +10,18 @@ module Twitch
   # @!attribute [r] raw
   #   @return [String] Raw message from Twitch
   # @example
-  #   message = Twitch::Message.new(":ttlnow!ttlnow@ttlnow.tmi.twitch.tv PRIVMSG #ttlnow :Hello world!\r\n")
-  #   message.sender.name  # => :ttlnow
-  #   message.channel.name # => :ttlnow
+  #   message = Twitch::Message.new(":justinfan!justinfan@justinfan.tmi.twitch.tv PRIVMSG #twitchgaming :Hello world!\r\n")
+  #   message.sender.name  # => :justinfan
+  #   message.channel.name # => :twitchgaming
   #   message.content      # => "Hello world!"
-  #   message.raw          # => ":ttlnow!ttlnow@ttlnow.tmi.twitch.tv PRIVMSG #ttlnow :Hello world!\r\n"
+  #   message.raw          # => ":justinfan!justinfan@justinfan.tmi.twitch.tv PRIVMSG #justinfan :Hello world!\r\n"
   class Message < String
     attr_reader :sender, :channel, :content, :raw
 
     # @param raw [String] Raw IRC websocket message from Twitch
     # @param connection [Bot, nil] For internal usage
     # @example
-    #   message = Twitch::Message.new(":ttlnow!ttlnow@ttlnow.tmi.twitch.tv PRIVMSG #ttlnow :Hello world!\r\n")
+    #   message = Twitch::Message.new(":justinfan!justinfan@justinfan.tmi.twitch.tv PRIVMSG #twitchgaming :Hello world!\r\n")
     def initialize(raw, connection: nil)
       split = raw.split(" ")
       content = split[3..-1].join(" ")[1..-1]
