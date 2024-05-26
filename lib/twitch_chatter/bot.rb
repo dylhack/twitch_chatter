@@ -60,6 +60,8 @@ module Twitch
       end
     end
 
+    alias_method :run, :start
+
     # @return [Array<Symbol>]
     def channels
       streams.keys
