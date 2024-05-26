@@ -35,5 +35,35 @@ module Twitch
 
     alias_method :text, :content
     alias_method :streamer, :channel
+
+    USERNAME = /[a-zA-Z0-9_]{4,25}/
+    def mentions
+      return @mentions if @mentions
+
+      @mentions = []
+      @content.split(" ").each do |word|
+        match = word.match(/@#{USERNAME}/)
+        next unless match
+
+        @mentions << match[0][1..-1]
+      end
+
+      @mentions
+    end
+
+    LINK = %r{(https?://[^\s]+)}
+    def links
+      return @links if @links
+
+      @links = []
+      @content.split(" ").each do |word|
+        match = word.match(LINK)
+        next unless match
+
+        @links << match[0]
+      end
+
+      @links
+    end
   end
 end

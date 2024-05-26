@@ -43,8 +43,7 @@ module Twitch
         Async::WebSocket::Client.connect(@websocket_url) do |ws|
           @ws = ws
           ws.write("NICK #{@nick}")
-          resume_pending
-          @ready_handle&.call
+          dispatch_ready
 
           while (ws_message = ws.read)
             data = ws_message.to_str
@@ -55,11 +54,7 @@ module Twitch
 
             next unless data.include?("PRIVMSG")
 
-            message = Message.new(data, connection: self)
-            @message_handle&.call(message)
-            streams[message.channel.to_sym].each do |block|
-              block.call(message)
-            end
+            dispatch(Message.new(data, connection: self))
           end
         end
       end
@@ -133,6 +128,18 @@ module Twitch
 
     private
 
+    def dispatch(message)
+      @message_handle&.call(message)
+      streams[message.channel.to_sym].each do |block|
+        block.call(message)
+      end
+    end
+
+    def dispatch_ready
+      join_all
+      @ready_handle&.call
+    end
+
     def streams
       @streams ||= {}
     end
@@ -146,7 +153,7 @@ module Twitch
       pending[streamer] << block
     end
 
-    def resume_pending
+    def join_all
       pending.each do |streamer, blocks|
         blocks.each { |block| join(streamer, &block) }
       end

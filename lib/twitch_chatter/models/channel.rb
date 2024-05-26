@@ -37,7 +37,7 @@ module Twitch
       @name.to_s
     end
 
-    # @param other [Channel, Symbol]
+    # @param other [Channel, String, Symbol]
     # @return [Boolean]
     def ==(other)
       if other.is_a?(Channel)
