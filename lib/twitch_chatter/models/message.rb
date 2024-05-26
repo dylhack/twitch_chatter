@@ -36,6 +36,7 @@ module Twitch
 
     alias_method :text, :content
     alias_method :streamer, :channel
+    alias_method :user, :sender
 
     USERNAME = /[a-zA-Z0-9_]{4,25}/
     # @return [Array<Twitch::Channel>] List of usernames mentioned in the message
