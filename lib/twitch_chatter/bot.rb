@@ -106,6 +106,8 @@ module Twitch
     # @example
     #   bot.leave(:twitchgaming)
     def leave(streamer)
+      return unless ready?
+
       streamer = streamer.to_sym
       streams[streamer] = []
       @ws.write("PART ##{streamer}")
