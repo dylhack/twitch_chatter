@@ -37,6 +37,13 @@ module Twitch
       @name.to_s
     end
 
+    def to_url
+      "https://twitch.tv/#{@name}"
+    end
+
+    alias_method :link, :to_url
+    alias_method :href, :to_url
+
     # @param other [Channel, String, Symbol]
     # @return [Boolean]
     def ==(other)
