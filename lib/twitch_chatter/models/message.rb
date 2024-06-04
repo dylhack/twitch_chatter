@@ -30,7 +30,7 @@ module Twitch
       @content = content
       @connection = connection
       @channel = Channel.new(split[2][1..-1], connection: connection)
-      @sender = Channel.new(split[0].split("!")[0][1..-1])
+      @sender = Channel.new(split[0].split("!")[0][1..-1], connection: connection)
       @raw = raw
     end
 
