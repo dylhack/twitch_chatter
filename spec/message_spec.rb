@@ -19,7 +19,7 @@ describe Twitch::Message do
 
     expect(result.channel).to(eq(sample[:channel]))
     expect(result.sender).to(eq(sample[:sender]))
-    expect(result).to(eq(sample[:content]))
+    expect(result.content).to(eq(sample[:content]))
   end
 
   it "parses all links" do
@@ -32,7 +32,7 @@ describe Twitch::Message do
 
     expect(result.channel).to(eq(sample[:channel]))
     expect(result.sender).to(eq(sample[:sender]))
-    expect(result).to(eq(sample[:content]))
+    expect(result.content).to(eq(sample[:content]))
     expect(result.links).to(eq(["https://kagi.com", "https://coolors.co/?home"]))
   end
 
@@ -42,7 +42,7 @@ describe Twitch::Message do
 
     expect(result.channel).to(eq(sample[:channel]))
     expect(result.sender).to(eq(sample[:sender]))
-    expect(result).to(eq(sample[:content]))
+    expect(result.content).to(eq(sample[:content]))
     expect(result.mentions).to(eq(["twitchgaming", "piratesoftware"]))
   end
 end
