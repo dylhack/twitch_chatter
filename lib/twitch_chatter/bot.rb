@@ -21,22 +21,25 @@ module Twitch
       websocket_url: "wss://irc-ws.chat.twitch.tv:443",
     }.freeze
 
+    # @see [DEFAULT_OPTIONS]
     def initialize(**options)
       @nick = options[:nick] || DEFAULT_OPTIONS[:nick]
       @websocket_url = Async::HTTP::Endpoint.parse(options[:websocket_url] || DEFAULT_OPTIONS[:websocket_url])
     end
 
-    # @yield
-    # @yieldparam
+    # Dispatched on websocket connect, but before channel joins
+    # @yield [nil]
     def ready(&block)
       @ready_handle = block
     end
 
+    # If we're connected to Twitch's websocket
     # @return [Boolean]
     def ready?
       @ws != nil
     end
 
+    # Begin pulling messages
     # @return [Async::Task]
     def start
       Async do
@@ -54,7 +57,7 @@ module Twitch
 
             next unless data.include?("PRIVMSG")
 
-            dispatch(Message.new(data, connection: self))
+            dispatch(Message.new(data, bot: self))
           end
         end
       end
@@ -64,27 +67,22 @@ module Twitch
 
     # @return [Array<Symbol>]
     def channels
-      streams.keys
+      streams.keys.map { |s| Channel.new(s, bot: self) }
     end
 
-    # @yield
-    # @yieldparam streamer [Symbol]
-    # @yieldreturn [nil]
+    # @yieldparam [Symbol] streamer
     def joined(&block)
       @join_handle = block
     end
 
-    # @yield
-    # @yieldparam streamer [Symbol]
-    # @yieldreturn [nil]
+    # @yieldparam [Symbol] streamer
     def left(&block)
       @leave_handle = block
     end
 
     # @param streamer [Symbol, String]
-    # @yield
     # @yieldparam message [Twitch::Message]
-    # @yieldreturn [nil]
+    # @return [nil]
     # @example
     #   bot.join(:twitchgaming) do |message|
     #     puts "##{message.channel} #{message.sender}: #{message}"
@@ -100,9 +98,12 @@ module Twitch
       streams[streamer] << block if block_given?
       @ws.write("JOIN ##{streamer}")
       @join_handle&.call(streamer)
+      nil
     end
 
+    # Disconnects from channel and removes all message callbacks.
     # @param streamer [Symbol, String]
+    # @return [nil]
     # @example
     #   bot.leave(:twitchgaming)
     def leave(streamer)
@@ -112,11 +113,10 @@ module Twitch
       streams[streamer] = []
       @ws.write("PART ##{streamer}")
       @leave_handle&.call(streamer)
+      nil
     end
 
-    # @yield
     # @yieldparam message [Twitch::Message]
-    # @yieldreturn [nil]
     # @example
     #   bot.message do |message|
     #     puts "##{message.channel} #{message.sender}: #{message}"
@@ -126,7 +126,7 @@ module Twitch
     end
 
     alias_method :part, :leave
-    alias_method :on_leave, :leave
+    alias_method :on_leave, :left
     alias_method :on_join, :joined
     alias_method :on_message, :message
 
@@ -140,8 +140,8 @@ module Twitch
     end
 
     def dispatch_ready
-      join_all
       @ready_handle&.call
+      join_all
     end
 
     def streams

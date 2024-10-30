@@ -3,8 +3,6 @@
 require "async"
 require "async/http/endpoint"
 require "async/websocket/client"
-require_relative "twitch_chatter/models"
-require_relative "twitch_chatter/bot"
 
 # @author Dylan Hackworth <me@dylhack.dev>
 # @example
@@ -20,4 +18,6 @@ require_relative "twitch_chatter/bot"
 #
 #   bot.start
 module Twitch
+  require_relative "twitch_chatter/models"
+  require_relative "twitch_chatter/bot"
 end

@@ -4,27 +4,26 @@ module Twitch
   # @!attribute [r] name
   #  @return [Symbol] Name of the channel
   # @example
-  #   channel = Twitch::Channel.new("twitchgaming")
+  #   channel = Twitch::Channel.new(:twitchgaming)
   class Channel
+    # @return [String]
     attr_reader :name
 
-    # @param name [String, Symbol]
-    # @param connection [Bot, nil] For internal usage
-    def initialize(name, connection: nil)
+    # @param [String, Symbol] name
+    # @param [Bot, nil] bot
+    def initialize(name, bot: nil)
       @name = name.to_sym
-      @connection = connection
+      @bot = bot
     end
 
-    # @yield
-    # @yieldparam message [Twitch::Message]
-    # @return [nil]
+    # (see Bot#join)
     def join(&block)
-      @connection.join(@name, &block)
+      @bot.join(@name, &block)
     end
 
-    # @return [nil]
+    # (see Bot#join)
     def leave
-      @connection.leave(@name)
+      @bot.leave(@name)
     end
 
     # @return [Symbol]
@@ -37,6 +36,7 @@ module Twitch
       @name.to_s
     end
 
+    # @return [String]
     def to_url
       "https://twitch.tv/#{@name}"
     end
@@ -44,7 +44,7 @@ module Twitch
     alias_method :link, :to_url
     alias_method :href, :to_url
 
-    # @param other [Channel, String, Symbol]
+    # @param [Channel, String, Symbol] other
     # @return [Boolean]
     def ==(other)
       if other.is_a?(Channel)
