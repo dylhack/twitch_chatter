@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = "twitch_chatter"
-  s.version     = "0.2.7"
+  s.version     = "0.2.8"
   s.licenses    = ["MIT"]
   s.summary     = "Read-only Twitch chat client."
   s.description = "A Ruby gem for Twitch's chat IRC websocket"
