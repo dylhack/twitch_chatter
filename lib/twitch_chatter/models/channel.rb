@@ -16,12 +16,18 @@ module Twitch
       @bot = bot
     end
 
-    # (see Bot#join)
+    # @yieldparam message [Twitch::Message]
+    # @return [nil]
+    # @example
+    #   channel.join do |message|
+    #     puts "##{message.channel} #{message.sender}: #{message}"
+    #   end
     def join(&block)
       @bot.join(@name, &block)
     end
 
-    # (see Bot#join)
+    # Disconnects from channel and removes all message callbacks.
+    # @return [nil]
     def leave
       @bot.leave(@name)
     end
